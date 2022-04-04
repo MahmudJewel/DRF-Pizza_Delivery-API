@@ -6,7 +6,7 @@ class OrderSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Order
-        fields= ['id','order_status', 'size', 'quantity', 'flavour']
+        fields= ['id','order_status', 'size', 'quantity', 'flavour', 'customer']
         
 class OrderStatusUpdateSerializer(serializers.ModelSerializer):
     # order_status = serializers.CharField(max_length=25)
