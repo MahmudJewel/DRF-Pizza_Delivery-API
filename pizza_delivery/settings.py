@@ -43,12 +43,16 @@ INSTALLED_APPS = [
     # 3rd party app
     'rest_framework',
     'phonenumber_field',
+    'phonenumbers',
     
     # external app
-    'authentications',
-    'orders',
+    'authentication.apps.AuthenticationConfig',
+    'orders.apps.OrdersConfig',
     
 ]
+
+# for customized user 
+AUTH_USER_MODEL = 'authentication.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
