@@ -40,24 +40,25 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     # 3rd party app
     'rest_framework',
     'phonenumber_field',
     'phonenumbers',
-    'djoser', # jwt authentications
-    
+    'djoser',  # jwt authentications
+    'drf_yasg',  # swagger doc
+
     # external app
     'authentication.apps.AuthenticationConfig',
     'orders.apps.OrdersConfig',
-    
+
 ]
 # for jwt token auth
-REST_FRAMEWORK={
-    "NON_FIELD_ERRORS_KEY":"error",
-    "DEFAULT_AUTHENTICATION_CLASSES":(
+REST_FRAMEWORK = {
+    "NON_FIELD_ERRORS_KEY": "error",
+    "DEFAULT_AUTHENTICATION_CLASSES": (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        )
+    )
 }
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
@@ -65,8 +66,23 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
 
-# for customized user 
+# for customized user
 AUTH_USER_MODEL = 'authentication.User'
+
+# swagger security definitions
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        # username and password on authorizations. turn it of by commenting
+        # 'Basic': {
+        #     'type': 'basic'
+        # },
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
