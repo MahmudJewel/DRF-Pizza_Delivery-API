@@ -18,19 +18,20 @@ class OrderViewset(viewsets.ModelViewSet):
 	queryset = Order.objects.all()
 	permission_classes=[IsAuthenticated]
 	
-	# def create(self, request, *args, **kwargs):
-	#     data=request.data
-	#     new_obj = Order.objects.create(order_status='PENDING', 
-	#                                 size=data['size'],
-	#                                 quantity=data['quantity'],
-	#                                 flavour=data['flavour'], 
-	#                                 customer=request.User)
-	#     new_obj.save()
-	#     serializer = OrderSerializer(new_obj)
-	#     return Response(serializer.data)
+	def create(self, request, *args, **kwargs):
+		data=request.data
+		new_obj = Order.objects.create(order_status='PENDING', 
+									size=data['size'],
+									quantity=data['quantity'],
+									flavour=data['flavour'], 
+								 	customer=request.user)
+		new_obj.save()
+		serializer = OrderSerializer(new_obj)
+		return Response(serializer.data)
 	
 # update order status
 class UpdateOrderStatusView(APIView):
+	permission_classes=[IsAuthenticated]
 	def get_object(self, order_id):
 		try:
 			return Order.objects.get(id=order_id)
